@@ -5,6 +5,8 @@ export class Game {
     this.round = 0;
     this.playerStep = 0;
     this.activeChoice = null;
+    this.playbackID = 0;
+    this.patternDelay = 750;
     this.delay = 500;
     this.gap = 200
     this.state = 'idle';
@@ -17,15 +19,18 @@ export class Game {
   }
 
   async showPattern() {
+    const currentID = this.playbackID;
     for (const char of this.sequence.pattern) {
       // How long Game displays selection
       this.activeChoice = char;
       this.update();
       await this.actionDelay(this.delay);
+      if (currentID !== this.playbackID) return;
       // Time between selections
       this.activeChoice = null;
       this.update();
       await this.actionDelay(this.gap);
+      if (currentID !== this.playbackID) return;
     }
     this.finishShowingPattern();
   }
@@ -49,6 +54,7 @@ export class Game {
     this.state = 'idle';
     this.sequence.reset();
     this.activeChoice = null;
+    this.playbackID ++;
     this.update();
   }
 
@@ -67,7 +73,7 @@ export class Game {
     this.update();
   }
 
-  handlePlayerChoice(choice) {
+  async handlePlayerChoice(choice) {
     if (this.state !== 'player-input') {
       return;
     }
@@ -78,8 +84,11 @@ export class Game {
     }
 
     this.playerStep ++;
+    const currentID = this.playbackID;
 
     if (this.playerStep === this.sequence.pattern.length) {
+        await this.actionDelay(this.patternDelay);
+        if (currentID !== this.playbackID) return;
         this.nextRound();
       }
   }

@@ -29,6 +29,11 @@
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 100%;
+    border: .6rem solid #171717;
+
+    box-shadow:
+      0 .8rem 1.4rem rgba(0, 0, 0, .45),
+      inset 0 0 0 .15rem rgba(255, 255, 255, .08);
   }
 
   &__ui {
@@ -44,38 +49,38 @@
     height: 20rem;
     border-radius: 50%;
     z-index: 10;
-    
-    /* Semi-transparent base color for the glass look */
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0) 100%);
-    
-    /* Blurs the content behind the ball */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    
-    /* Inner and outer glows to simulate light refraction */
-    box-shadow: 
-      inset 0 0 20px rgba(255, 255, 255, 0.6),
-      inset 0 0 50px rgba(150, 200, 255, 0.4),
-      0 10px 30px rgba(0, 0, 0, 0.2),
-      0 0 40px rgba(150, 200, 255, 0.3);
-    
-    /* Smooth outline */
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border: 2px solid #fff;
+    outline: .6rem solid #171717;
+    outline-offset: 0rem;
+    background: #141414;
+    border: .2rem solid #2a2a2a;
+
+    box-shadow:
+      inset 0 .4rem .8rem rgba(255, 255, 255, .05),
+      inset 0 -.5rem 1rem rgba(0, 0, 0, .45),
+      0 .5rem 1rem rgba(0, 0, 0, .35);
 
     &-button {
-      background: #000;
+      background: #343434;
       padding-block: .8rem;
       padding-inline: 1.6rem;
       margin-block: .6rem;
       border-radius: 2rem;
       cursor: pointer;
       box-shadow: 0 2px 3px 1px #000;
-      transition: all .2s ease;
+      transition: box-shadow .2s ease;
+      border: 0;
 
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px 2px #000;
+        // transform: translateY(-1px);
+        box-shadow: 0 4px .6rem 1px #000;
+      }
+
+      &:active {
+        position: relative;
+        top: 1px;
+        box-shadow: 
+        0 0 1px #000,
+        inset 0 2px 4px rgba(0, 0, 0, .8);
       }
 
       &:disabled {
@@ -95,55 +100,56 @@
     position: absolute;
     overflow: hidden;
     cursor: pointer;
+    border: 0;
+  }
 
-    &.choice {
-      box-shadow: inset 0 0 20px 10px white;
-    } 
+  .brutus,
+  .sparkplug,
+  .burnella,
+  .grumbit {
+
+    &.active {
+      filter: brightness(2.3);
+    }
   }
 
   .brutus {
-    background: #3A2614;
+    background: #8A681F;
     border-top-left-radius: 100%;
-    border-right: 2px solid black;
-    top: 1%;
-    left: 1%;
-    
-    &.active {
-      background-color: #D89A3D;
-    }
+    border-bottom-right-radius: 2.5rem;
+    border-right: .6rem solid #171717;
+    border-bottom: .6rem solid #171717;
+    top: 0;
+    left: 0;
   }
 
   .sparkplug {
-    background: #163545;
+    background: #176B87;
     border-top-right-radius: 100%;
-    top: 1%;
-    right: 1%;
-
-    &.active {
-      background-color: #4FC3FF;
-    }
+    border-bottom-left-radius: 2.5rem;
+    border-left: .6rem solid #171717;
+    border-bottom:  .6rem solid #171717;
+    top: 0;
+    right: 0;
   }
 
   .burnella {
-    background: #1F3A1D;
+    background: #722F37;
     border-bottom-right-radius: 100%;
-    bottom: 1%;
-    right: 1%;
-
-    &.active {
-      background-color: #5FAF4A;
-    }
+    border-top-left-radius: 2.5rem;
+    border-left: .6rem solid #171717;
+    border-top: .6rem solid #171717;
+    bottom: 0;
+    right: 0;
   }
 
   .grumbit {
-    background: #2C1B45;
+    background: #3F6B45;
     border-bottom-left-radius: 100%;
-    bottom: 1%;
-    left: 1%;
-
-    &.active {
-      background-color: #B07CFF;
-    }
+    border-top-right-radius: 2.5rem;
+    border-right: .6rem solid #171717;
+    border-top: .6rem solid #171717;
+    bottom: 0;
+    left: 0;
   }
-  
 }

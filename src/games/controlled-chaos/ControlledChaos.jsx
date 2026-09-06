@@ -41,7 +41,7 @@ export default function ControlledChaos() {
           <div className="cc__ui">
             <button className="cc__ui-button start" disabled={state !== 'idle'} onClick={() => gameRef.current.start()}>{state === 'idle' ? "Start" : "CHAOS IN PROGRESS..."}</button>
             <button className="cc__ui-button reset" onClick={() => gameRef.current.reset()}>Reset</button>
-            <button className="cc__ui-button round">{round}</button>
+            <div className="cc__ui-round">{round}</div>
           </div>
           <button onClick={() => gameRef.current.handlePlayerChoice('brutus')} className={activeChoice === 'brutus' ? 'button brutus active' : 'button brutus'}></button>
           <button onClick={() => gameRef.current.handlePlayerChoice('sparkplug')} className={activeChoice === 'sparkplug' ? 'button sparkplug active' : 'button sparkplug'}></button>
