@@ -1,10 +1,12 @@
+import { GalleryThumbnailsIcon } from "lucide-react";
+
 export class Game {
   constructor(update) {
     this.round = 0;
-    this.score = 0;
     this.playerStep = 0;
     this.activeChoice = null;
-    this.delay = 1000;
+    this.delay = 500;
+    this.gap = 200
     this.state = 'idle';
     this.sequence = new Sequence();
     this.update = update;
@@ -16,9 +18,14 @@ export class Game {
 
   async showPattern() {
     for (const char of this.sequence.pattern) {
+      // How long Game displays selection
       this.activeChoice = char;
       this.update();
-      await this.actionDelay(this.delay)
+      await this.actionDelay(this.delay);
+      // Time between selections
+      this.activeChoice = null;
+      this.update();
+      await this.actionDelay(this.gap);
     }
     this.finishShowingPattern();
   }
@@ -28,8 +35,6 @@ export class Game {
       return;
     }
 
-    this.round = 1;
-    this.score = 0;
     this.playerStep = 0;
     this.state = 'showing-pattern';
     this.sequence.reset();
@@ -40,20 +45,20 @@ export class Game {
 
   reset() {
     this.round = 0;
-    this.score = 0;
     this.playerStep = 0;
     this.state = 'idle';
     this.sequence.reset();
+    this.activeChoice = null;
     this.update();
   }
 
   nextRound() {
     this.round ++;
-    this.score ++;
     this.playerStep = 0;
     this.state = 'showing-pattern'; 
     this.sequence.addChoice();
     this.update();
+    this.showPattern();
   }
 
   finishShowingPattern() {
@@ -81,7 +86,7 @@ export class Game {
 
   lose() {
     this.state = 'game-over';
-    console.log('You Lose!');
+    this.update();
   }
 }
 

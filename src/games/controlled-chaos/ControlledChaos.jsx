@@ -13,17 +13,13 @@ import Picture from '../../components/Picture';
 export default function ControlledChaos() {
 
   const [activeChoice, setActiveChoice] = useState(null);
-  const [pattern, setPattern] = useState([]);
   const [round, setRound] = useState(0);
   const [state, setState] = useState('idle');
-  const [score, setScore] = useState(0);
 
   const update = () => {
     setActiveChoice(gameRef.current.activeChoice);
-    setPattern(gameRef.current.sequence.pattern.slice()); 
     setRound(gameRef.current.round);
     setState(gameRef.current.state);
-    setScore(gameRef.current.score)
   }
 
   const gameRef = useRef(new Game(update));
@@ -47,10 +43,10 @@ export default function ControlledChaos() {
             <button className="cc__ui-button reset" onClick={() => gameRef.current.reset()}>Reset</button>
             <button className="cc__ui-button round">{round}</button>
           </div>
-          <div className={activeChoice === 'brutus' ? 'button brutus active' : 'button brutus'}></div>
-          <div className={activeChoice === 'sparkplug' ? 'button sparkplug active' : 'button sparkplug'}></div>
-          <div className={activeChoice === 'burnella' ? 'button burnella active' : 'button burnella'}></div>
-          <div className={activeChoice === 'grumbit' ? 'button grumbit active' : 'button grumbit'}></div>
+          <button onClick={() => gameRef.current.handlePlayerChoice('brutus')} className={activeChoice === 'brutus' ? 'button brutus active' : 'button brutus'}></button>
+          <button onClick={() => gameRef.current.handlePlayerChoice('sparkplug')} className={activeChoice === 'sparkplug' ? 'button sparkplug active' : 'button sparkplug'}></button>
+          <button onClick={() => gameRef.current.handlePlayerChoice('burnella')} className={activeChoice === 'burnella' ? 'button burnella active' : 'button burnella'}></button>
+          <button onClick={() => gameRef.current.handlePlayerChoice('grumbit')} className={activeChoice === 'grumbit' ? 'button grumbit active' : 'button grumbit'}></button>
         </section>
       </Block>
       <PageFooter />
